@@ -11,8 +11,8 @@ Personalised news recommender that gives newly published and rarely shown articl
 | 0 | `step0_eda.ipynb` | P2 | Interim figures, cold-threshold sensitivity |
 | 1 | `step1_data_preprocess.ipynb` | P1 | Parquet files: split by date (9–13 / 14 / 15 Nov), 1:4 negative sampling, leak-free cold/warm labels |
 | 2 | `step2_baselines/` | P3 | Random, popularity, NCF/NMF; cold-versus-warm gap diagnosis |
-| | ├ `step2_popularity.ipynb` | P1 | Popularity and category-CTR baseline |
-| | ├ `step2_content_based.ipynb` | P2 | Content-based filtering (title/abstract similarity to user history) |
+| | ├ `step2_popularity.ipynb` | P3 | Popularity and category-CTR baseline |
+| | ├ `step2_content_based.ipynb` | P3 | Content-based filtering (title/abstract similarity to user history) |
 | | └ `step2_ncf_nmf.ipynb` | P3 | NCF / NMF (course baselines) |
 | 3 | `step3_features/` | P4 | Feature tables and text/entity embeddings, with feature ablation |
 | | ├ `step3_features.ipynb` | P4 | Feature tables and embeddings |
