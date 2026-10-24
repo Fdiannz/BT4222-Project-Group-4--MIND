@@ -1,4 +1,4 @@
-"""Shared evaluation. Owner: P2.
+"""Shared metrics (utils/metrics.py). Owner: P2.
 
 Every model is scored with these functions so results are comparable.
 
@@ -7,7 +7,7 @@ candidate on FULL slates (no negative sampling), containing
     impression_id, news_id, label (0/1), and a score column.
 
 Usage:
-    from src.eval import evaluate, evaluate_by_segment, topk_diversity
+    from utils.metrics import evaluate, evaluate_by_segment, topk_diversity
     evaluate(df, "score")                         # overall
     evaluate_by_segment(df, "score", "is_cold")   # cold vs warm impressions
 """
