@@ -9,6 +9,7 @@ DATA_DIR = f"{PROJECT_DIR}/data"
 RAW_DIR = f"{DATA_DIR}/raw"              # original MIND-large files
 PROCESSED_DIR = f"{DATA_DIR}/processed"  # parquet outputs of step1
 OUTPUT_DIR = f"{PROJECT_DIR}/outputs"    # figures, result tables
+SCORES_DIR = f"{DATA_DIR}/scores"   # per-candidate score files, one per model (dev split)
 
 TRAIN_DIR = f"{RAW_DIR}/MINDlarge_train"
 DEV_DIR = f"{RAW_DIR}/MINDlarge_dev"
@@ -27,5 +28,6 @@ COLD_REPORT_START = "2019-11-10"  # 9 Nov excluded from cold/warm reporting (cou
 
 # ---- Evaluation / re-ranking ----
 TOP_K = 10
-MAX_PER_CATEGORY = 4     # category-level diversity cap in the top 10
-SIM_THRESHOLD = 0.85     # content-level near-duplicate threshold (cosine)
+MMR_LAMBDAS = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5]   # soft MMR re-ranking; 1.0 = relevance only
+MAX_PER_CATEGORY = 4     # optional category cap; use as a soft penalty if kept
+SIM_THRESHOLD = 0.85     # DEPRECATED, replaced by MMR_LAMBDAS; remove once P6 confirms nothing uses it
