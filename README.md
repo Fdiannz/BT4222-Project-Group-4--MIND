@@ -33,11 +33,23 @@ Shared settings live in `config.py` (paths, split dates, thresholds). Import sha
 
 The official MIND test split has no public click labels and is not used for evaluation.
 
-## How to run (Google Colab)
+## How to run locally (VS Code)
 
-1. **Data — do this first:** MIND-large is in the shared Google Drive folder `BT4222_Project/data/raw/` ([Drive link]). Add it to your Drive: open the link → click the folder name → *Organize → Add shortcut* → *My Drive*. It must sit directly under My Drive. To use your own copy instead, download MIND-large from https://msnews.github.io and edit the paths in `config.py`.
-2. Open a notebook in Colab: *File → Open notebook → GitHub* → paste this repo's URL.
-3. Run all cells top to bottom, in step order. Step 4 needs a GPU runtime (*Runtime → Change runtime type*).
+1. Install Python and the VS Code **Python** and **Jupyter** extensions. From the repository root, create and activate a virtual environment, then install the notebook dependencies:
+   ```powershell
+   py -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   python -m pip install -r requirements.txt
+   ```
+2. Put MIND-large under `data/raw/` using the folders `MINDlarge_train`, `MINDlarge_dev`, and `MINDlarge_test`. Download it from https://msnews.github.io or copy it from the shared Google Drive folder `BT4222_Project/data/raw/` ([Drive link]).
+3. Open this repository in VS Code and select `.venv` as the notebook kernel. Run the notebooks from step 0 through step 6 in order; step 1 creates the parquet files under `data/processed/`, which step 2 and later require.
+4. By default, `config.py` uses this repository as the project directory. To keep `data/` and `outputs/` elsewhere, set `MIND_PROJECT_DIR` to the directory containing them before starting the notebook kernel.
+
+The NCF/NMF notebook runs on CPU, but training on MIND-large may be slow. Set `SMOKE = True` in its settings cell for a small pipeline check. Step 4 requires a CUDA-capable GPU.
+
+## How to run in Google Colab
+
+The shared Colab data path remains supported by `config.py` when the Drive shortcut is mounted at `/content/drive/MyDrive/BT4222_Project`. For another location, set `MIND_PROJECT_DIR` to the project directory before importing `config`.
 
 ## Team rules
 

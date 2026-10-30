@@ -3,13 +3,23 @@
 Change a value here (via its owner), never inside your own notebook.
 """
 
-# ---- Paths (same for everyone once the Drive shortcut is added) ----
-PROJECT_DIR = "/content/drive/MyDrive/BT4222_Project"
-DATA_DIR = f"{PROJECT_DIR}/data"
-RAW_DIR = f"{DATA_DIR}/raw"              # original MIND-large files
-PROCESSED_DIR = f"{DATA_DIR}/processed"  # parquet outputs of step1
-OUTPUT_DIR = f"{PROJECT_DIR}/outputs"    # figures, result tables
-SCORES_DIR = f"{DATA_DIR}/scores"   # per-candidate score files, one per model (dev split)
+import os
+from pathlib import Path
+
+# Override this when the data/outputs directory lives outside the repository.
+REPO_DIR = Path(__file__).resolve().parent
+COLAB_PROJECT_DIR = Path("/content/drive/MyDrive/BT4222_Project")
+PROJECT_DIR = Path(
+    os.environ.get(
+        "MIND_PROJECT_DIR",
+        str(COLAB_PROJECT_DIR if COLAB_PROJECT_DIR.is_dir() else REPO_DIR),
+    )
+)
+DATA_DIR = str(PROJECT_DIR / "data")
+RAW_DIR = str(PROJECT_DIR / "data" / "raw")              # original MIND-large files
+PROCESSED_DIR = str(PROJECT_DIR / "data" / "processed")  # parquet outputs of step1
+OUTPUT_DIR = str(PROJECT_DIR / "outputs")                # figures, result tables
+SCORES_DIR = str(PROJECT_DIR / "data" / "scores")        # per-candidate score files, one per model (dev split)
 
 TRAIN_DIR = f"{RAW_DIR}/MINDlarge_train"
 DEV_DIR = f"{RAW_DIR}/MINDlarge_dev"
