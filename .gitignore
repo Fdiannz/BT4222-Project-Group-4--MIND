@@ -1,0 +1,15 @@
+# data and model files (kept on Drive, not in git)
+*.tsv
+*.vec
+*.zip
+*.parquet
+*.npy
+*.pt
+data/
+outputs/
+ 
+# Python / Jupyter clutter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
