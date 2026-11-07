@@ -19,7 +19,7 @@ We use **MIND-large** (about 1 million users and 160,000 articles), which reflec
 - Neural Collaborative Filtering / Non-negative Matrix Factorisation (NCF / NMF)
 - Feature-based Multilayer Perceptron (MLP)
 - **KLAR: Knowledge-aware LSTM–Attention Recommender** (our advanced model)
-- MMR re-ranking for diversity, applied on top of the advanced model
+- MMR re-ranking for diversity and slate calibration to match reading history, both applied to KLAR
 
 ## 🧭 Pipeline
 
@@ -37,7 +37,8 @@ We use **MIND-large** (about 1 million users and 160,000 articles), which reflec
 | ├ | `step3_features.ipynb` | User, news, context and user × news feature tables; text embeddings |
 | └ | `step3_feature_mlp.ipynb` | Feature-based MLP |
 | 4 | `step4_advanced_model.ipynb` | KLAR advanced model, its score files and article vectors, plus architecture ablation |
-| 5 | `step5_rerank_mmr.ipynb` | MMR re-ranking and the λ sweep |
+| 5 | `step5_rerank_mmr.ipynb` | Tune sweeps and Test rankings for MMR |
+| └ | `step5_rerank_calibration.ipynb` | Tune sweeps and Test rankings for slate calibration |
 | 6 | `step6_diagnostics.ipynb` | Model comparison by cold/warm, category, slate length and history length |
 
 Shared settings live in `config.py` (paths, split dates, thresholds). Import shared code from `utils/`; don't copy it into notebooks.
@@ -67,8 +68,12 @@ Shared settings live in `config.py` (paths, split dates, thresholds). Import sha
 
 It outputs score files for Tune and Test (`data/scores/step4_klar_*.parquet`) and article vectors (`data/embeddings/step4_klar_news_vectors.npy`), and runs an architecture ablation (without LSTM, without entities, fewer heads, lower dropout).
 
-### Step 5: MMR Re-ranking
+### Step 5: Re-ranking
 `step5_rerank_mmr.ipynb` re-ranks KLAR's scores with **Maximal Marginal Relevance (MMR)**, trading a little relevance for diversity using the similarity between KLAR's article vectors. The trade-off λ is chosen on Tune and applied once to Test.
+
+`step5_rerank_calibration.ipynb` re-ranks KLAR's top 10 to better match the categories and subcategories in the user's click history. The calibration weight is chosen on Tune and fixed for Test. 
+
+Both notebooks compare their results against KLAR and can run in either order after Step 4.
 
 ### Step 6: Diagnostics
 `step6_diagnostics.ipynb` compares all models on the Test day with the shared metrics, broken down by cold/warm impressions, category, slate length and the user's history length, and reports the diversity and cold share of the top-10 lists.
