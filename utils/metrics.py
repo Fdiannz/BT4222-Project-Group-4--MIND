@@ -1,4 +1,4 @@
-"""Shared metrics (utils/metrics.py). Owner: P2.
+"""Shared metrics (utils/metrics.py). 
 
 Every model is scored with these functions so results are comparable.
 
