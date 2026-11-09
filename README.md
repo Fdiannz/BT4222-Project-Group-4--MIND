@@ -14,7 +14,7 @@ This project builds and evaluates recommenders with two goals:
 
 We use **MIND-large** (about 1 million users and 160,000 articles), which reflects the scale of a large news platform. Models are compared in increasing order of complexity:
 
-- Popularity, Content-based filtering (CBF), Neural Collaborative Filtering / Non-negative Matrix Factorisation (NCF / NMF) baselines
+- Popularity, Content-based filtering (CBF), NCF (GMF and NeuMF) baselines
 - Feature-based Multilayer Perceptron (MLP)
 - **KLAR: Knowledge-aware LSTM–Attention Recommender** (our advanced model)
 - MMR re-ranking for diversity and slate calibration to match reading history, both applied to KLAR
@@ -41,7 +41,7 @@ MIND's own test split has no click labels, so it is not used.
 | 2 | `step2_baselines/` | Popularity, content-based, NCF/NMF baselines and their cold-versus-warm gap |
 | ├ | `step2_popularity.ipynb` | Popularity baseline |
 | ├ | `step2_content_based.ipynb` | Content-based filtering (TF-IDF + SVD similarity to the user's history) |
-| └ | `step2_ncf_nmf.ipynb` | NCF / NMF on user and article IDs |
+| └ | `step2_ncf_nmf.ipynb` | NCF baselines, GMF and NeuMF, on user and article IDs, with the cold-versus-warm gap|
 | 3 | `step3_features.ipynb` | Feature Engineering : User, news, context and user × news features, and MiniLM article embeddings |
 | 3 | `step3_feature_mlp.ipynb` | Feature-based MLP with feature ablation |
 | 4 | `step4_advanced_model.ipynb` | KLAR advanced model, its score files and article vectors, plus architecture ablation |
@@ -62,7 +62,7 @@ Every model setting, including λ for MMR and α for calibration, is chosen on T
 ### Step 2: Baselines
 - `step2_popularity.ipynb`: ranks articles by past click rate, smoothed towards the global rate (α chosen on Tune). Articles never shown before get the global rate.
 - `step2_content_based.ipynb`:turns each article's title and abstract into a TF-IDF vector reduced to 128 dimensions with SVD, then scores candidates by cosine similarity to the average of the user's clicked articles.
-- `step2_ncf_nmf.ipynb`: collaborative filtering with NCF and NMF. These learn user and article ID embeddings, so they show the cold-versus-warm gap that ID-based models suffer from.
+- `step2_ncf_nmf.ipynb`: collaborative filtering with NCF (GMF and NeuMF). These learn user and article ID embeddings, so they show the cold-versus-warm gap that ID-based models suffer from.
 
 ### Step 3: Feature Engineering and Feature-based MLP
 - `step3_features.ipynb`: builds leak-free features for each candidate (history length, category and subcategory, exposure percentile within the slate, article age, MiniLM content similarity and category match with the user's history) and MiniLM embeddings for every article.
